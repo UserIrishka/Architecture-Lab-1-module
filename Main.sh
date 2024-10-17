@@ -2,6 +2,7 @@
 
 folder=$1
 n=$2
+#для суперпользователя нужно использовать sudo du
 res=$(du -s $folder | awk '{print $1}')
 load=$(du -s $folder/* | awk '{sum += $1} END {print sum}')
 
@@ -54,11 +55,12 @@ if [ "$percentage" -gt 70 ]; then
             archive_file="$folder/archive.tar.gz"
 
             # Создаем архив с N(N=2) самыми старыми файлами
+            #для суперпользователя нужно использовать sudo tar        
             tar -zcf "$archive_file" -C "$folder" "${files_array[@]}" -P
 
             echo "Архив создан: $archive_file"
 
-        # Удаляем файлы после архивирования
+        # Удаляем файлы после архивирования #для суперпользователя нужно использовать sudo rm
             for file in "${files_array[@]}"; do
                 echo "Удаляем файл: $file"
                 rm "$file"
