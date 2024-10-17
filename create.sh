@@ -22,9 +22,6 @@ sudo mkfs.ext4 /tmp/1GB_disk.img
 # Создаем точку монтирования.
 sudo mkdir "$folder_name"
 
-# Монтируем раздел в точку монтирования.
-sudo mount /tmp/1GB_disk.img "$folder_name"
-
 # Создаем три файла в папке.
 cd "$folder_name"
 touch file1.txt
@@ -34,7 +31,7 @@ touch file4.txt
 touch file5.txt
 
 # Выводим сообщение о завершении.
-echo "Папка '$folder_name' создана с ограничением на 1 ГБ и тремя файлами."
+echo "Папка '$folder_name' создана с ограничением на 1 ГБ и пятью файлами."
 
 # Размонтируем раздел.
 sudo umount "$folder_name"
