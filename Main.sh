@@ -50,13 +50,13 @@ if [ "$percentage" -gt 70 ]; then
                 timestamp=$(stat -c %Y "$file")
                 if [ "$timestamp" -gt "$(date -d '30 days ago' +%s)" ]; then
                         echo "$timestamp $file" >> "$temp_file"
-                        human_readable_date=$(date -d "@$timestamp" "+%Y-%m>
+                         human_readable_date=$(date -d "@$timestamp" "+%Y-%m-%d %H:%M:%S")
                         echo "$human_readable_date $file"
                 fi
             fi
         done | sort -rn
 
-        oldest_files=$(sort -n "$temp_file" | head -n "$n" | awk '{print $2>
+        oldest_files=$(sort -n "$temp_file" | head -n "$n" | awk '{print $2}')
 
         echo "Выбранные файлы для архивации:"
         if [ -z "$oldest_files" ]; then
@@ -65,7 +65,7 @@ if [ "$percentage" -gt 70 ]; then
             files_array=()
             for file in $oldest_files; do
                 if [ -f "$file" ]; then
-                    human_readable_date=$(date -d "@$(stat -c %Y "$file")" >
+                    human_readable_date=$(date -d "@$(stat -c %Y "$file")" "+%Y-%m-%d %H:%M:%S")
                     echo "$human_readable_date ${file##8/}"
                     files_array+=("$file")  # Добавляем полный путь к файлу
                 else
