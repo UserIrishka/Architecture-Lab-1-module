@@ -16,11 +16,11 @@ if [ -d "$folder_name" ]; then
 fi
 
 # Создаем раздел на 1 ГБ.
-sudo dd if=/dev/zero of=/tmp/1GB_disk.img bs=1M count=1024
-sudo mkfs.ext4 /tmp/1GB_disk.img
+dd if=/dev/zero of=/tmp/1GB_disk.img bs=1M count=1024
+mkfs.ext4 /tmp/1GB_disk.img
 
 # Создаем точку монтирования.
-sudo mkdir "$folder_name"
+mkdir "$folder_name"
 
 # Создаем три файла в папке.
 cd "$folder_name"
@@ -34,7 +34,7 @@ touch file5.txt
 echo "Папка '$folder_name' создана с ограничением на 1 ГБ и пятью файлами."
 
 # Размонтируем раздел.
-sudo umount "$folder_name"
+umount "$folder_name"
 
 # Удаляем временный файл образа диска.
-sudo rm /tmp/1GB_disk.img
+rm /tmp/1GB_disk.img
